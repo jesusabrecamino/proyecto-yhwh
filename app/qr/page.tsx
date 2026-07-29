@@ -10,7 +10,7 @@ export default function QRPage() {
       </h1>
 
       <QRCodeSVG
-        value="http://localhost:3000"
+        value="https://proyecto-yhwh-eight.vercel.app"
         size={300}
       />
 
