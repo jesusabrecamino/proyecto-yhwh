@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
+import Swal from "sweetalert2";
 
 export default function Voluntarios() {
   const [nombre, setNombre] = useState("");
@@ -24,17 +25,38 @@ export default function Voluntarios() {
       ]);
 
     if (error) {
-  console.log(error);
-  alert(JSON.stringify(error));
+  console.error(error);
+
+  await Swal.fire({
+    icon: "error",
+    title: "No pudimos enviar tu solicitud",
+    text: "Por favor, inténtalo nuevamente.",
+    confirmButtonColor: "#991b1b",
+  });
+
   return;
 }
 
-    alert("¡Gracias por ofrecerte como voluntario!");
+await Swal.fire({
+  icon: "success",
+  title: "¡Gracias por querer servir!",
+  html: `
+    <p>Hemos recibido correctamente tus datos.</p>
+    <p style="margin-top:12px;">
+      Gracias por disponer tu tiempo y corazón para servir en este encuentro.
+    </p>
+    <p style="margin-top:12px;">
+      <strong>¡Bendiciones!</strong>
+    </p>
+  `,
+  confirmButtonText: "Aceptar",
+  confirmButtonColor: "#B8860B",
+});
 
-    setNombre("");
-    setTelefono("");
-    setCorreo("");
-    setMensaje("");
+setNombre("");
+setTelefono("");
+setCorreo("");
+setMensaje("");
   }
 
   return (

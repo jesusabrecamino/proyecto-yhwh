@@ -1,5 +1,7 @@
 "use client";
 
+import Swal from "sweetalert2";
+
 export default function Donaciones() {
 
   const copiarDatos = async () => {
@@ -11,11 +13,33 @@ Número de cuenta: 1069639057
 Correo: iglesiajac@gmail.com`;
 
     try {
-      await navigator.clipboard.writeText(datos);
-      alert("¡Datos bancarios copiados!");
-    } catch {
-      alert("No se pudieron copiar los datos.");
-    }
+  await navigator.clipboard.writeText(datos);
+
+  await Swal.fire({
+    icon: "success",
+    title: "¡Datos bancarios copiados!",
+    html: `
+      <p>Los datos para realizar la transferencia fueron copiados correctamente.</p>
+      <p style="margin-top:12px;">
+        Ahora puedes pegarlos directamente en tu aplicación bancaria.
+      </p>
+      <p style="margin-top:12px;">
+        <strong>¡Muchas gracias por tu disposición a apoyar!</strong>
+      </p>
+    `,
+    confirmButtonText: "Aceptar",
+    confirmButtonColor: "#B8860B",
+  });
+
+} catch {
+  await Swal.fire({
+    icon: "error",
+    title: "No pudimos copiar los datos",
+    text: "Puedes copiar los datos bancarios manualmente desde esta página.",
+    confirmButtonText: "Aceptar",
+    confirmButtonColor: "#991b1b",
+  });
+}
   };
 
   return (
