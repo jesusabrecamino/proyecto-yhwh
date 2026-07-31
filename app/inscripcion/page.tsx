@@ -126,8 +126,20 @@ await fetch("/api/enviar-correo", {
             className="w-full bg-red-700 text-white py-3 rounded-lg font-bold hover:bg-red-800 transition"
           >
             Confirmar inscripción
-          </button>
+                    </button>
+
         </form>
+
+        {/* VOLVER AL ENCUENTRO */}
+        <div className="mt-8 text-center">
+          <a
+            href="/"
+            className="inline-block rounded-full border border-red-700 px-8 py-3 font-semibold text-red-700 transition hover:bg-red-700 hover:text-white"
+          >
+            ← Volver al encuentro
+          </a>
+        </div>
+
       </div>
     </main>
   );
