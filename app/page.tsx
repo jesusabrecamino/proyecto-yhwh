@@ -35,7 +35,7 @@ useEffect(() => {
     <main className="bg-white">
 
       {/* HERO */}
-      <section className="relative h-screen">
+      <section className="relative min-h-screen py-16">
 
         <Image
           src="/imagenes/invitacion.jpeg"
