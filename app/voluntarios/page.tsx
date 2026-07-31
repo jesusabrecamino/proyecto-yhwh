@@ -83,7 +83,7 @@ setMensaje("");
             required
             value={nombre}
             onChange={(e)=>setNombre(e.target.value)}
-            className="w-full rounded-xl border p-4"
+            className="w-full rounded-xl border border-gray-300 p-4 text-gray-900 placeholder:text-gray-600 placeholder:opacity-100"
           />
 
           <input
@@ -92,7 +92,7 @@ setMensaje("");
             required
             value={telefono}
             onChange={(e)=>setTelefono(e.target.value)}
-            className="w-full rounded-xl border p-4"
+            className="w-full rounded-xl border border-gray-300 p-4 text-gray-900 placeholder:text-gray-600 placeholder:opacity-100"
           />
 
           <input
@@ -101,7 +101,7 @@ setMensaje("");
             required
             value={correo}
             onChange={(e)=>setCorreo(e.target.value)}
-            className="w-full rounded-xl border p-4"
+            className="w-full rounded-xl border border-gray-300 p-4 text-gray-900 placeholder:text-gray-600 placeholder:opacity-100"
           />
 
           <textarea
@@ -109,7 +109,7 @@ setMensaje("");
             rows={5}
             value={mensaje}
             onChange={(e)=>setMensaje(e.target.value)}
-            className="w-full rounded-xl border p-4"
+            className="w-full rounded-xl border border-gray-300 p-4 text-gray-900 placeholder:text-gray-600 placeholder:opacity-100"
           />
 
           <button

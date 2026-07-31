@@ -94,41 +94,40 @@ await fetch("/api/enviar-correo", {
         </h1>
 
         <form onSubmit={guardarInscripcion} className="space-y-5">
-          <input
-            type="text"
-            placeholder="Nombre y Apellido"
-            value={nombre}
-            onChange={(e) => setNombre(e.target.value)}
-            className="w-full border rounded-lg p-3"
-            required
-          />
+  <input
+    type="text"
+    placeholder="Nombre y Apellido"
+    value={nombre}
+    onChange={(e) => setNombre(e.target.value)}
+    className="w-full border border-gray-300 rounded-lg p-3 text-gray-900 placeholder:text-gray-600 placeholder:opacity-100"
+    required
+  />
 
-          <input
-            type="tel"
-            placeholder="Teléfono"
-            value={telefono}
-            onChange={(e) => setTelefono(e.target.value)}
-            className="w-full border rounded-lg p-3"
-            required
-          />
+  <input
+    type="tel"
+    placeholder="Teléfono"
+    value={telefono}
+    onChange={(e) => setTelefono(e.target.value)}
+    className="w-full border border-gray-300 rounded-lg p-3 text-gray-900 placeholder:text-gray-600 placeholder:opacity-100"
+    required
+  />
 
-          <input
-            type="email"
-            placeholder="Correo electrónico"
-            value={correo}
-            onChange={(e) => setCorreo(e.target.value)}
-            className="w-full border rounded-lg p-3"
-            required
-          />
+  <input
+    type="email"
+    placeholder="Correo electrónico"
+    value={correo}
+    onChange={(e) => setCorreo(e.target.value)}
+    className="w-full border border-gray-300 rounded-lg p-3 text-gray-900 placeholder:text-gray-600 placeholder:opacity-100"
+    required
+  />
 
-          <button
-            type="submit"
-            className="w-full bg-red-700 text-white py-3 rounded-lg font-bold hover:bg-red-800 transition"
-          >
-            Confirmar inscripción
-                    </button>
-
-        </form>
+  <button
+    type="submit"
+    className="w-full bg-red-700 text-white py-3 rounded-lg font-bold hover:bg-red-800 transition"
+  >
+    Confirmar inscripción
+  </button>
+</form>
 
         {/* VOLVER AL ENCUENTRO */}
         <div className="mt-8 text-center">

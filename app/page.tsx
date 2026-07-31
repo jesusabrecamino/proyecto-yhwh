@@ -12,27 +12,43 @@ const [timeLeft, setTimeLeft] = useState({
 });
 
 useEffect(() => {
-  const targetDate = new Date("2026-08-15T18:00:00");
+  document.title = "JS FUNCIONANDO";
+  
+  const targetDate = new Date("2026-08-15T18:00:00-04:00");
 
-  const interval = setInterval(() => {
+  function actualizarContador() {
     const now = new Date();
     const difference = targetDate.getTime() - now.getTime();
 
-    if (difference <= 0) return;
+    if (difference <= 0) {
+      setTimeLeft({
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+      });
+      return;
+    }
 
     setTimeLeft({
       days: Math.floor(difference / (1000 * 60 * 60 * 24)),
       hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-      minutes: Math.floor((difference / 1000 / 60) % 60),
+      minutes: Math.floor((difference / (1000 * 60)) % 60),
       seconds: Math.floor((difference / 1000) % 60),
     });
-  }, 1000);
+  }
+
+  // Calcular inmediatamente al abrir la página
+  actualizarContador();
+
+  // Actualizar cada segundo
+  const interval = setInterval(actualizarContador, 1000);
 
   return () => clearInterval(interval);
 }, []);
 
   return (
-    <main className="bg-white">
+    <main className="bg-white overflow-x-hidden">
 
       {/* HERO */}
       <section className="relative min-h-screen py-16">
@@ -54,9 +70,9 @@ useEffect(() => {
           <div className="max-w-3xl text-center text-white">
 
             <div className="mb-8">
-  <span className="inline-block rounded-full border border-white/30 bg-white/10 px-8 py-3 backdrop-blur-md">
+  <span className="inline-block rounded-full border border-white/30 bg-white/10 px-5 sm:px-8 py-3 backdrop-blur-md">
     <span
-      className="text-xl md:text-2xl font-semibold uppercase tracking-[8px] text-white"
+      className="text-sm sm:text-lg md:text-2xl font-semibold uppercase tracking-[4px] sm:tracking-[6px] md:tracking-[8px] text-white"
       style={{
         textShadow: "0 2px 15px rgba(0,0,0,.8)",
       }}
@@ -67,7 +83,7 @@ useEffect(() => {
 </div>
 
             <h1
-  className="text-6xl md:text-8xl lg:text-[7rem] xl:text-[8rem] leading-[0.95] font-bold text-[#D4AF37]"
+  className="text-[3rem] sm:text-6xl md:text-8xl lg:text-[7rem] xl:text-[8rem] leading-[0.95] font-bold text-[#D4AF37]"
   style={{
     fontFamily: "var(--font-title)",
     textShadow: "0 3px 12px rgba(0,0,0,.45)",
@@ -75,14 +91,17 @@ useEffect(() => {
 >
   Encuentro de
   <br />
-  Matrimonios y Parejas
+  Matrimonios
+  <br className="md:hidden" />
+  <span className="md:hidden"> y Parejas</span>
+  <span className="hidden md:inline"> y Parejas</span>
 </h1>
 
             <div className="mt-8 max-w-2xl mx-auto">
 
 
   <p
-    className="text-2xl md:text-3xl italic leading-relaxed text-white"
+    className="text-lg sm:text-xl md:text-3xl italic leading-relaxed text-white"
     style={{ fontFamily: "var(--font-title)" }}
   >
     "Las muchas aguas no podrán apagar el amor,
@@ -91,7 +110,7 @@ useEffect(() => {
   </p>
 
   <p
-  className="mt-5 text-white text-2xl tracking-wide"
+  className="mt-4 md:mt-5 text-white text-lg md:text-2xl tracking-wide"
   style={{ fontFamily: "var(--font-title)" }}
 >
   Cantares 8:7
@@ -106,46 +125,50 @@ useEffect(() => {
             >
               Reservar mi cupo
             </a>
-            <div className="mt-16">
+            <div className="mt-10 md:mt-16">
 
-  <p className="uppercase tracking-[8px] text-[#D4AF37] text-sm font-semibold mb-8">
+  <p className="uppercase tracking-[4px] md:tracking-[8px] text-[#D4AF37] text-xs md:text-sm font-semibold mb-4 md:mb-8">
     Faltan para nuestro encuentro
   </p>
 
-  <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto">
+  <div className="grid grid-cols-4 gap-2 md:gap-6 max-w-3xl mx-auto">
 
-    <div className="rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 py-6 shadow-xl">
-      <div className="text-5xl font-bold text-[#D4AF37]">
+    {/* DÍAS */}
+    <div className="rounded-xl md:rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 py-3 md:py-6 shadow-xl">
+      <div className="text-2xl md:text-5xl font-bold text-[#D4AF37]">
         {timeLeft.days}
       </div>
-      <div className="mt-2 text-white uppercase tracking-[3px] text-sm">
+      <div className="mt-1 md:mt-2 text-white uppercase tracking-normal md:tracking-[3px] text-[9px] md:text-sm">
         Días
       </div>
     </div>
 
-    <div className="rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 py-6 shadow-xl">
-      <div className="text-5xl font-bold text-[#D4AF37]">
+    {/* HORAS */}
+    <div className="rounded-xl md:rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 py-3 md:py-6 shadow-xl">
+      <div className="text-2xl md:text-5xl font-bold text-[#D4AF37]">
         {timeLeft.hours}
       </div>
-      <div className="mt-2 text-white uppercase tracking-[3px] text-sm">
+      <div className="mt-1 md:mt-2 text-white uppercase tracking-normal md:tracking-[3px] text-[9px] md:text-sm">
         Horas
       </div>
     </div>
 
-    <div className="rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 py-6 shadow-xl">
-      <div className="text-5xl font-bold text-[#D4AF37]">
+    {/* MINUTOS */}
+    <div className="rounded-xl md:rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 py-3 md:py-6 shadow-xl">
+      <div className="text-2xl md:text-5xl font-bold text-[#D4AF37]">
         {timeLeft.minutes}
       </div>
-      <div className="mt-2 text-white uppercase tracking-[3px] text-sm">
+      <div className="mt-1 md:mt-2 text-white uppercase tracking-normal md:tracking-[3px] text-[9px] md:text-sm">
         Minutos
       </div>
     </div>
 
-    <div className="rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 py-6 shadow-xl">
-      <div className="text-5xl font-bold text-[#D4AF37]">
+    {/* SEGUNDOS */}
+    <div className="rounded-xl md:rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 py-3 md:py-6 shadow-xl">
+      <div className="text-2xl md:text-5xl font-bold text-[#D4AF37]">
         {timeLeft.seconds}
       </div>
-      <div className="mt-2 text-white uppercase tracking-[3px] text-sm">
+      <div className="mt-1 md:mt-2 text-white uppercase tracking-normal md:tracking-[3px] text-[9px] md:text-sm">
         Segundos
       </div>
     </div>
@@ -162,78 +185,77 @@ useEffect(() => {
 
 {/* BIENVENIDA */}
 
-<section className="bg-gradient-to-b from-white to-[#f8f4ee] py-24">
+<section className="bg-gradient-to-b from-white to-[#f8f4ee] py-14 md:py-24">
 
-  <div className="mx-auto max-w-[1700px] px-10">
+  <div className="mx-auto w-full max-w-[1700px] px-5 sm:px-6 md:px-10">
 
-    <div className="grid items-center gap-16 lg:grid-cols-[1.25fr_1fr]">
+    <div className="grid items-center gap-10 md:gap-16 lg:grid-cols-[1.25fr_1fr]">
 
-      {/* Foto */}
-<div className="flex justify-end items-center pr-6">
+      {/* FOTO */}
+      <div className="flex items-center justify-center lg:justify-end lg:pr-6">
 
-  <div className="relative w-full max-w-[700px]">
+        <div className="relative w-full max-w-[700px]">
 
-    <Image
-      src="/imagenes/pastores.png"
-      alt="Pastores"
-      width={900}
-      height={900}
-      className="w-full h-auto object-contain"
-    />
+          <Image
+            src="/imagenes/pastores.png"
+            alt="Pastores"
+            width={900}
+            height={900}
+            className="h-auto w-full object-contain"
+          />
 
-  </div>
+        </div>
 
-</div>
+      </div>
 
-{/* Texto */}
-<div className="max-w-2xl">
+      {/* TEXTO */}
+      <div className="w-full min-w-0 max-w-2xl">
 
-        <p className="uppercase tracking-[6px] text-red-700 font-semibold mb-4">
+        <p className="mb-4 text-center text-xs font-semibold uppercase tracking-[3px] text-red-700 sm:text-sm sm:tracking-[4px] lg:text-left lg:tracking-[6px]">
           Una invitación para ustedes
         </p>
 
         <h2
-  className="text-5xl lg:text-6xl xl:text-7xl text-red-900 mb-8 leading-none"
-  style={{ fontFamily: "var(--font-title)" }}
->
-  <span className="block text-4xl lg:text-5xl mb-4">
-    Pastores
-  </span>
+          className="mb-6 text-center text-4xl leading-tight text-red-900 sm:text-5xl lg:mb-8 lg:text-left lg:text-6xl xl:text-7xl"
+          style={{ fontFamily: "var(--font-title)" }}
+        >
+          <span className="mb-3 block text-3xl sm:text-4xl lg:mb-4 lg:text-5xl">
+            Pastores
+          </span>
 
-  <span className="block">
-    Nicolás&nbsp;Quintanilla
-  </span>
+          <span className="block break-words">
+            Nicolás Quintanilla
+          </span>
 
-  <span className="block text-4xl lg:text-5xl my-2">
-    &
-  </span>
+          <span className="my-1 block text-3xl sm:text-4xl lg:my-2 lg:text-5xl">
+            &
+          </span>
 
-  <span className="block">
-    Jennifer&nbsp;Carrasco
-  </span>
-</h2>
+          <span className="block break-words">
+            Jennifer Carrasco
+          </span>
+        </h2>
 
-{/* ← AQUÍ PEGA ESTE BLOQUE */}
-<div className="w-56 h-[3px] rounded-full bg-gradient-to-r from-[#B8860B] via-[#FFD700] to-[#B8860B] mb-10"></div>
+        <div className="mx-auto mb-7 h-[3px] w-40 rounded-full bg-gradient-to-r from-[#B8860B] via-[#FFD700] to-[#B8860B] lg:mx-0 lg:mb-10 lg:w-56"></div>
 
-        <p className="text-xl leading-9 text-gray-700">
-  Como matrimonio pastoral queremos extenderles una invitación muy especial.
-  Hemos preparado este encuentro con oración, cariño y el deseo de que cada
-  pareja viva un tiempo de renovación, comunión y crecimiento junto al Señor.
-</p>
+        <p className="text-base leading-7 text-gray-700 sm:text-lg sm:leading-8 lg:text-xl lg:leading-9">
+          Como matrimonio pastoral queremos extenderles una invitación muy especial.
+          Hemos preparado este encuentro con oración, cariño y el deseo de que cada
+          pareja viva un tiempo de renovación, comunión y crecimiento junto al Señor.
+        </p>
 
-<p className="mt-6 text-xl leading-9 text-gray-700">
-  Será una oportunidad para compartir, aprender, fortalecer el matrimonio y
-  recordar que cuando Cristo está en el centro del hogar, el amor siempre
-  encuentra un nuevo comienzo.
-</p>
+        <p className="mt-5 text-base leading-7 text-gray-700 sm:text-lg sm:leading-8 lg:mt-6 lg:text-xl lg:leading-9">
+          Será una oportunidad para compartir, aprender, fortalecer el matrimonio y
+          recordar que cuando Cristo está en el centro del hogar, el amor siempre
+          encuentra un nuevo comienzo.
+        </p>
 
-<p
-  className="mt-8 text-2xl text-red-800"
-  style={{ fontFamily: "var(--font-title)" }}
->
-  ¡Será una alegría recibirles!
-</p>
+        <p
+          className="mt-7 text-center text-xl text-red-800 sm:text-2xl lg:mt-8 lg:text-left"
+          style={{ fontFamily: "var(--font-title)" }}
+        >
+          ¡Será una alegría recibirles!
+        </p>
 
       </div>
 
@@ -426,40 +448,45 @@ useEffect(() => {
 
 {/* BARRA FLOTANTE */}
 
-<div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-4xl">
+<div className="fixed bottom-3 md:bottom-8 left-1/2 -translate-x-1/2 z-50 w-[94%] max-w-4xl">
 
   <div
-  className="
-    rounded-2xl
-    bg-white/5
-    backdrop-blur-2xl
-    border border-white/20
-    shadow-[0_10px_40px_rgba(0,0,0,.18)]
-    p-3
-  "
->
+    className="
+      rounded-2xl
+      bg-white/80
+      md:bg-white/5
+      backdrop-blur-xl
+      md:backdrop-blur-2xl
+      border border-white/30
+      shadow-[0_10px_40px_rgba(0,0,0,.18)]
+      p-2
+      md:p-3
+    "
+  >
 
-    <div className="grid grid-cols-3 gap-3">
+    <div className="grid grid-cols-3 gap-2 md:gap-3">
 
       <a
         href="/inscripcion"
-        className="rounded-xl bg-red-700/90 py-4 text-center text-white font-semibold transition hover:bg-red-800"
+        className="flex items-center justify-center rounded-xl bg-red-700 py-3.5 px-2 text-center text-sm sm:text-base md:py-4 md:text-base text-white font-semibold transition hover:bg-red-800"
       >
-        📅 Reservar cupo
+        📅 <span className="ml-1">Reservar</span>
+        <span className="hidden md:inline">&nbsp;cupo</span>
       </a>
 
       <a
         href="/voluntarios"
-        className="rounded-xl bg-[#B8860B]/90 py-4 text-center text-white font-semibold transition hover:bg-[#9b6d00]"
+        className="flex items-center justify-center rounded-xl bg-[#B8860B] py-3.5 px-2 text-center text-sm sm:text-base md:py-4 md:text-base text-white font-semibold transition hover:bg-[#9b6d00]"
       >
-        ❤️ Quiero servir
+        ❤️ <span className="ml-1">Servir</span>
+        <span className="hidden md:inline">&nbsp;como voluntario</span>
       </a>
 
       <a
         href="/donaciones"
-        className="rounded-xl bg-green-700/90 py-4 text-center text-white font-semibold transition hover:bg-green-800"
+        className="flex items-center justify-center rounded-xl bg-green-700 py-3.5 px-2 text-center text-sm sm:text-base md:py-4 md:text-base text-white font-semibold transition hover:bg-green-800"
       >
-        💚 Donar
+        💚 <span className="ml-1">Donar</span>
       </a>
 
     </div>

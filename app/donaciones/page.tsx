@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 export default function Donaciones() {
 
   const copiarDatos = async () => {
-    const datos = `Titular: IGLESIA DE CRISTO JESUS ABRE CAMINOS
+    const datos = `IGLESIA JESÚS ABRE CAMINOS
 RUT: 652589111
 Banco: Mercado Pago
 Tipo de cuenta: Vista
@@ -13,33 +13,63 @@ Número de cuenta: 1069639057
 Correo: iglesiajac@gmail.com`;
 
     try {
-  await navigator.clipboard.writeText(datos);
+      let copiado = false;
 
-  await Swal.fire({
-    icon: "success",
-    title: "¡Datos bancarios copiados!",
-    html: `
-      <p>Los datos para realizar la transferencia fueron copiados correctamente.</p>
-      <p style="margin-top:12px;">
-        Ahora puedes pegarlos directamente en tu aplicación bancaria.
-      </p>
-      <p style="margin-top:12px;">
-        <strong>¡Muchas gracias por tu disposición a apoyar!</strong>
-      </p>
-    `,
-    confirmButtonText: "Aceptar",
-    confirmButtonColor: "#B8860B",
-  });
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(datos);
+        copiado = true;
+      } else {
+        const textarea = document.createElement("textarea");
 
-} catch {
-  await Swal.fire({
-    icon: "error",
-    title: "No pudimos copiar los datos",
-    text: "Puedes copiar los datos bancarios manualmente desde esta página.",
-    confirmButtonText: "Aceptar",
-    confirmButtonColor: "#991b1b",
-  });
-}
+        textarea.value = datos;
+        textarea.setAttribute("readonly", "");
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        textarea.style.left = "0";
+        textarea.style.top = "0";
+
+        document.body.appendChild(textarea);
+
+        textarea.focus();
+        textarea.select();
+        textarea.setSelectionRange(0, textarea.value.length);
+
+        copiado = document.execCommand("copy");
+
+        document.body.removeChild(textarea);
+      }
+
+      if (!copiado) {
+        throw new Error("No fue posible copiar los datos");
+      }
+
+      await Swal.fire({
+        icon: "success",
+        title: "¡Datos bancarios copiados!",
+        html: `
+          <p>Los datos para realizar la transferencia fueron copiados correctamente.</p>
+          <p style="margin-top:12px;">
+            Ahora puedes pegarlos directamente en tu aplicación bancaria.
+          </p>
+          <p style="margin-top:12px;">
+            <strong>¡Muchas gracias por tu disposición a apoyar!</strong>
+          </p>
+        `,
+        confirmButtonText: "Aceptar",
+        confirmButtonColor: "#B8860B",
+      });
+
+    } catch (error) {
+      console.error("Error al copiar:", error);
+
+      await Swal.fire({
+        icon: "error",
+        title: "No pudimos copiar los datos",
+        text: "Puedes copiar los datos bancarios manualmente desde esta página.",
+        confirmButtonText: "Aceptar",
+        confirmButtonColor: "#991b1b",
+      });
+    }
   };
 
   return (
@@ -86,15 +116,15 @@ Correo: iglesiajac@gmail.com`;
           <div className="space-y-5 p-8 md:p-10">
 
             {/* TITULAR */}
-            <div className="border-b border-gray-100 pb-4">
-              <p className="text-sm font-semibold uppercase tracking-wider text-gray-400">
-                Titular de la cuenta
-              </p>
+<div className="border-b border-gray-100 pb-4">
+  <p className="text-sm font-semibold uppercase tracking-wider text-gray-400">
+    Titular de la cuenta
+  </p>
 
-              <p className="mt-1 text-xl font-semibold text-gray-800">
-                IGLESIA DE CRISTO JESUS ABRE CAMINOS
-              </p>
-            </div>
+  <p className="mt-1 text-xl font-semibold text-gray-800">
+    IGLESIA JESÚS ABRE CAMINOS
+  </p>
+</div>
 
             {/* RUT */}
             <div className="border-b border-gray-100 pb-4">
